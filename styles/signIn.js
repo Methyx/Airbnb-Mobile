@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   submit: {
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 50,
+    marginTop: 10,
     marginBottom: 20,
   },
   submitText: {

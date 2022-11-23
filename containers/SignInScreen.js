@@ -39,6 +39,8 @@ export default function SignInScreen({ setToken }) {
           onChangeText={(email) => {
             setEmail(email);
           }}
+          value={email}
+          autoCapitalize="none"
         />
         <TextInput
           style={styles.textInput}
@@ -47,19 +49,21 @@ export default function SignInScreen({ setToken }) {
           onChangeText={(password) => {
             setPassword(password);
           }}
+          value={password}
+          autoCapitalize="none"
         />
-        {message.message && (
-          <Text
-            style={{
-              color: message.color,
-              textAlign: "center",
-              marginTop: 30,
-              fontWeight: "bold",
-            }}
-          >
-            {message.message}
-          </Text>
-        )}
+        {/* {message.message && ( */}
+        <Text
+          style={{
+            color: message.color,
+            textAlign: "center",
+            marginVertical: 10,
+            fontWeight: "bold",
+          }}
+        >
+          {message.message}
+        </Text>
+        {/* )} */}
         {isBusy ? (
           <ActivityIndicator size="large" style={{ marginTop: 30 }} />
         ) : (
