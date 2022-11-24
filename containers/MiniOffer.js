@@ -5,13 +5,12 @@ import { useNavigation } from "@react-navigation/core";
 import styles from "../styles/miniOfferStyle";
 
 const MiniOffer = ({ offer }) => {
-  const yellowStars = [];
-  const grayStars = [];
+  const stars = [];
   for (let i = 0; i < 5; i++) {
     if (i < offer.ratingValue) {
-      yellowStars.push(offer._id.toString() + i.toString());
+      stars.push({ id: offer._id.toString() + i.toString(), color: "gold" });
     } else {
-      grayStars.push(offer._id.toString() + i.toString());
+      stars.push({ id: offer._id.toString() + i.toString(), color: "gray" });
     }
   }
   const navigation = useNavigation();
@@ -35,27 +34,18 @@ const MiniOffer = ({ offer }) => {
             {offer.title}
           </Text>
           <View style={styles.rating}>
-            {yellowStars.length > 0 && (
+            <View>
               <FlatList
-                data={yellowStars}
-                keyExtractor={(item) => `Yellow ${item}`}
+                data={stars}
+                keyExtractor={(item) => item.id}
                 horizontal={true}
                 // style={{ backgroundColor: "purple" }}
                 renderItem={({ item }) => (
-                  <FontAwesome name="star" size={24} color="gold" />
+                  <FontAwesome name="star" size={24} color={item.color} />
                 )}
               />
-            )}
-            {grayStars.length > 0 && (
-              <FlatList
-                data={grayStars}
-                keyExtractor={(item) => `Gray ${item}`}
-                horizontal={true}
-                renderItem={({ item }) => (
-                  <FontAwesome name="star" size={24} color="gray" />
-                )}
-              />
-            )}
+            </View>
+
             <Text style={styles.reviews}>{offer.reviews} reviews</Text>
           </View>
         </View>

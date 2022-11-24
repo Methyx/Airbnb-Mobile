@@ -6,11 +6,12 @@ import {
   ActivityIndicator,
   FlatList,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { FontAwesome } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
+import { FontAwesome, AntDesign } from "@expo/vector-icons";
+import { SwiperFlatList } from "react-native-swiper-flatlist";
 
 import styles from "../styles/offerStyle";
 
@@ -36,17 +37,25 @@ const Room = () => {
     fetchData();
   }, []);
 
-  const yellowStars = [];
-  const grayStars = [];
+  //Init
+  const stars = [];
+  const photos = [];
   if (offer) {
     for (let i = 0; i < 5; i++) {
       if (i < offer.ratingValue) {
-        yellowStars.push(offer._id.toString() + i.toString());
+        stars.push({ id: offer._id.toString() + i.toString(), color: "gold" });
       } else {
-        grayStars.push(offer._id.toString() + i.toString());
+        stars.push({ id: offer._id.toString() + i.toString(), color: "gray" });
       }
     }
+    for (let i = 0; i < offer.photos.length; i++) {
+      photos.push({
+        id: offer.photos.picture_id,
+        image: offer.photos[i].url,
+      });
+    }
   }
+
   return (
     <>
       {isLoading ? (
@@ -54,7 +63,16 @@ const Room = () => {
       ) : (
         <>
           <View style={styles.imageContainer}>
-            <Image source={{ uri: offer.photos[0].url }} style={styles.image} />
+            <SwiperFlatList
+              data={photos}
+              renderItem={({ item }) => (
+                <Image
+                  style={styles.image}
+                  source={{ uri: item.image }}
+                ></Image>
+              )}
+              showPagination
+            />
             <Text style={styles.offerPrice}>{offer.price} €</Text>
           </View>
           <View style={styles.bottom}>
@@ -63,26 +81,16 @@ const Room = () => {
                 {offer.title}
               </Text>
               <View style={styles.rating}>
-                {yellowStars.length > 0 && (
+                <View>
                   <FlatList
-                    data={yellowStars}
-                    keyExtractor={(item) => `Yellow ${item}`}
+                    data={stars}
+                    keyExtractor={(item) => item.id}
                     horizontal={true}
                     renderItem={({ item }) => (
-                      <FontAwesome name="star" size={24} color="gold" />
+                      <FontAwesome name="star" size={24} color={item.color} />
                     )}
                   />
-                )}
-                {grayStars.length > 0 && (
-                  <FlatList
-                    data={grayStars}
-                    keyExtractor={(item) => `Gray ${item}`}
-                    horizontal={true}
-                    renderItem={({ item }) => (
-                      <FontAwesome name="star" size={24} color="gray" />
-                    )}
-                  />
-                )}
+                </View>
                 <Text style={styles.reviews}>{offer.reviews} reviews</Text>
               </View>
             </View>

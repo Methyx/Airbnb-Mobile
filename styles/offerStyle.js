@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   imageContainer: {
@@ -8,8 +8,9 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   image: {
-    width: "100%",
-    height: "100%",
+    width: Dimensions.get("windows").width,
+    height: 300,
+    resizeMode: "cover",
   },
   offerPrice: {
     fontSize: 22,
