@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   image: {
-    width: Dimensions.get("windows").width,
+    width: Dimensions.get("window").width,
     height: 300,
     resizeMode: "cover",
   },
