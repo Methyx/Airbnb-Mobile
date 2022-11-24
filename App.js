@@ -10,10 +10,9 @@ import HomeScreen from "./containers/HomeScreen";
 import ProfileScreen from "./containers/ProfileScreen";
 import SignInScreen from "./containers/SignInScreen";
 import SignUpScreen from "./containers/SignUpScreen";
-import SettingsScreen from "./containers/SettingsScreen";
-import SplashScreen from "./containers/SplashScreen";
 import Header from "./containers/Header";
 import Room from "./containers/OfferScreen";
+import AroundMe from "./containers/AroundMeScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -94,10 +93,33 @@ export default function App() {
                         headerTitle: (props) => <Header {...props} />,
                       }}
                     >
-                      <Stack.Screen name="Home">
-                        {() => <HomeScreen />}
-                      </Stack.Screen>
-                      <Stack.Screen name="Room">{() => <Room />}</Stack.Screen>
+                      <Stack.Screen name="Home" component={HomeScreen} />
+                      <Stack.Screen name="Room" component={Room} />
+                    </Stack.Navigator>
+                  )}
+                </Tab.Screen>
+                <Tab.Screen
+                  name="TabAroundMe"
+                  options={{
+                    tabBarLabel: "AroundMe",
+                    tabBarIcon: ({ color, size }) => (
+                      <Ionicons
+                        name={"ios-location-outline"}
+                        size={size}
+                        color={color}
+                      />
+                    ),
+                  }}
+                >
+                  {() => (
+                    <Stack.Navigator>
+                      <Stack.Screen
+                        name="AroundMe"
+                        component={AroundMe}
+                        options={{
+                          title: "Around Me",
+                        }}
+                      />
                     </Stack.Navigator>
                   )}
                 </Tab.Screen>
@@ -118,7 +140,9 @@ export default function App() {
                           title: "User Profile",
                         }}
                       >
-                        {() => <ProfileScreen />}
+                        {(props) => (
+                          <ProfileScreen {...props} setToken={setToken} />
+                        )}
                       </Stack.Screen>
                     </Stack.Navigator>
                   )}
