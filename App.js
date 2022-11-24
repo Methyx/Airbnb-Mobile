@@ -13,7 +13,7 @@ import SignUpScreen from "./containers/SignUpScreen";
 import SettingsScreen from "./containers/SettingsScreen";
 import SplashScreen from "./containers/SplashScreen";
 import Header from "./containers/Header";
-import Room from "./containers/Offer";
+import Room from "./containers/OfferScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();

@@ -63,6 +63,10 @@ const styles = StyleSheet.create({
   showMore: {
     color: "grey",
   },
+  map: {
+    width: "100%",
+    height: 200,
+  },
 });
 
 export default styles;

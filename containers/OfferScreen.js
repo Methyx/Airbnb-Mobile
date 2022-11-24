@@ -6,13 +6,13 @@ import {
   ActivityIndicator,
   FlatList,
   TouchableOpacity,
-  ImageBackground,
-  Dimensions,
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { FontAwesome, AntDesign } from "@expo/vector-icons";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
+import MapView from "react-native-maps";
+import { Marker } from "react-native-maps";
 
 import styles from "../styles/offerStyle";
 
@@ -137,6 +137,26 @@ const Room = () => {
                 </Text>
               </TouchableOpacity>
             )}
+          </View>
+          <View>
+            <MapView
+              style={styles.map}
+              initialRegion={{
+                latitude: 48.856614,
+                longitude: 2.3522219,
+                latitudeDelta: 0.1,
+                longitudeDelta: 0.1,
+              }}
+            >
+              <Marker
+                coordinate={{
+                  latitude: offer.location[1],
+                  longitude: offer.location[0],
+                }}
+                title={offer.title}
+                description={offer.description}
+              />
+            </MapView>
           </View>
         </>
       )}
