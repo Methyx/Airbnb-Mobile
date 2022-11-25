@@ -1,4 +1,4 @@
-import { View, Text, ActivityIndicator } from "react-native";
+import { View, Text, Button, ActivityIndicator } from "react-native";
 import * as Location from "expo-location";
 import { useState, useEffect } from "react";
 import MapView from "react-native-maps";
@@ -23,8 +23,9 @@ const AroundMe = ({ navigation }) => {
         });
         setIsAuthorized(true);
         let url = "https://express-airbnb-api.herokuapp.com/rooms/around";
-        url += "?latitude=" + position.coords.latitude;
-        url += "&longitude=" + position.coords.longitude;
+        // !!! on ne transmet pas les coordonnées réelles pour avoir toutes les annonces !!!
+        // url += "?latitude=" + position.coords.latitude;
+        // url += "&longitude=" + position.coords.longitude;
         try {
           const response = await axios.get(url);
           setData(response.data);
@@ -45,28 +46,28 @@ const AroundMe = ({ navigation }) => {
       {isLoading ? (
         <ActivityIndicator size="large" style={{ marginTop: 30 }} />
       ) : !isAuthorized ? (
-        <>
-          <Text>
-            {
-              "Sans l'autorisation d'accéder à vos coordonnées, vous ne pouvez pas accéder à cette page"
-            }
+        <View
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        >
+          <Text style={{ marginVertical: 25 }}>
+            Sans l'autorisation d'accéder à vos coordonnées, vous ne pouvez pas
+            accéder à cette page
           </Text>
           <Button
+            title="Retour à la page d'accueil"
             onPress={() => {
               navigation.navigate("Home");
             }}
-          >
-            Retour à la page d'accueil
-          </Button>
-        </>
+          />
+        </View>
       ) : (
         <MapView
           style={{ flex: 1 }}
           initialRegion={{
             latitude: Number(coords.latitude),
             longitude: Number(coords.longitude),
-            latitudeDelta: 0.1,
-            longitudeDelta: 0.1,
+            latitudeDelta: 0.2,
+            longitudeDelta: 0.2,
           }}
           provider={PROVIDER_GOOGLE}
           showsUserLocation={true}
@@ -81,6 +82,9 @@ const AroundMe = ({ navigation }) => {
                 }}
                 title={item.title}
                 description={item.description}
+                onPress={() => {
+                  navigation.navigate("Room", { offerId: item._id });
+                }}
               />
             );
           })}

@@ -101,7 +101,7 @@ export default function App() {
                 <Tab.Screen
                   name="TabAroundMe"
                   options={{
-                    tabBarLabel: "AroundMe",
+                    tabBarLabel: "Around Me",
                     tabBarIcon: ({ color, size }) => (
                       <Ionicons
                         name={"ios-location-outline"}
@@ -120,6 +120,7 @@ export default function App() {
                           title: "Around Me",
                         }}
                       />
+                      <Stack.Screen name="Room" component={Room} />
                     </Stack.Navigator>
                   )}
                 </Tab.Screen>
