@@ -147,6 +147,8 @@ const Room = () => {
                 latitudeDelta: 0.1,
                 longitudeDelta: 0.1,
               }}
+              // provider={PROVIDER_GOOGLE}
+              showsUserLocation={true}
             >
               <Marker
                 coordinate={{

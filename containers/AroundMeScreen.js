@@ -69,7 +69,7 @@ const AroundMe = ({ navigation }) => {
             longitudeDelta: 0.1,
           }}
           provider={PROVIDER_GOOGLE}
-          showUserLocation={true}
+          showsUserLocation={true}
         >
           {data.map((item, index) => {
             return (
