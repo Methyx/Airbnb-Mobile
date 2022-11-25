@@ -5,7 +5,7 @@ const handleSubmitSignIn = async (
   password,
   setMessage,
   setIsBusy,
-  setToken
+  setUser
 ) => {
   setMessage({ message: "", color: "black" });
   if (!password || !email) {
@@ -33,8 +33,7 @@ const handleSubmitSignIn = async (
         password: password,
       }
     );
-    // console.log(response.data);
-    setToken(response.data.token);
+    setUser(response.data.token, response.data.id);
     setIsBusy(false);
     setMessage({
       message: `Bienvenue ${response.data.username}`,

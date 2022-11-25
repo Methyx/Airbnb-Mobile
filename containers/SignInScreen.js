@@ -14,7 +14,7 @@ import handleSubmitSignIn from "../functions/handleSubmitSignIn";
 
 import styles from "../styles/signInStyle";
 
-export default function SignInScreen({ setToken }) {
+export default function SignInScreen({ setUser }) {
   const navigation = useNavigation();
 
   //STATES
@@ -76,7 +76,7 @@ export default function SignInScreen({ setToken }) {
                   password,
                   setMessage,
                   setIsBusy,
-                  setToken
+                  setUser
                 );
               }}
             >

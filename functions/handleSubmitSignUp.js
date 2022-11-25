@@ -8,7 +8,7 @@ const handleSubmitSignUp = async (
   password2,
   setMessage,
   setIsBusy,
-  setToken
+  setUser
 ) => {
   setMessage({ message: "", color: "black" });
   if (!password || !email || !userName || !description) {
@@ -45,9 +45,8 @@ const handleSubmitSignUp = async (
         password: password,
       }
     );
-    // console.log(response.data);
     alert("Inscription effectuée. Merci !");
-    setToken(response.data.token);
+    setUser(response.data.token, response.data.id);
     setIsBusy(false);
     setMessage({
       message: `Bienvenue ${response.data.username}`,

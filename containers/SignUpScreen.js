@@ -13,7 +13,7 @@ import { useState } from "react";
 import handleSubmitSignUp from "../functions/handleSubmitSignUp";
 
 import styles from "../styles/signUpStyle";
-export default function SignUpScreen({ setToken }) {
+export default function SignUpScreen({ setUser }) {
   const navigation = useNavigation();
 
   //STATES
@@ -110,7 +110,7 @@ export default function SignUpScreen({ setToken }) {
                   password2,
                   setMessage,
                   setIsBusy,
-                  setToken
+                  setUser
                 );
               }}
             >

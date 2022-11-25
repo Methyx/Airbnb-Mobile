@@ -20,15 +20,19 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [userToken, setUserToken] = useState(null);
+  const [userId, setUserId] = useState(null);
 
-  const setToken = async (token) => {
+  const setUser = async (token, id) => {
     if (token) {
       await AsyncStorage.setItem("userToken", token);
+      await AsyncStorage.setItem("userId", id);
     } else {
       await AsyncStorage.removeItem("userToken");
+      await AsyncStorage.removeItem("userId");
     }
 
     setUserToken(token);
+    setUserId(id);
   };
 
   useEffect(() => {
@@ -36,11 +40,12 @@ export default function App() {
     const bootstrapAsync = async () => {
       // We should also handle error for production apps
       const userToken = await AsyncStorage.getItem("userToken");
+      const userId = await AsyncStorage.getItem("userId");
 
       // This will switch to the App screen or Auth screen and this loading
       // screen will be unmounted and thrown away.
       setUserToken(userToken);
-
+      setUserId(userId);
       setIsLoading(false);
     };
 
@@ -59,10 +64,10 @@ export default function App() {
           // No token found, user isn't signed in
           <>
             <Stack.Screen name="SignIn">
-              {() => <SignInScreen setToken={setToken} />}
+              {() => <SignInScreen setUser={setUser} />}
             </Stack.Screen>
             <Stack.Screen name="Register">
-              {() => <SignUpScreen setToken={setToken} />}
+              {() => <SignUpScreen setUser={setUser} />}
             </Stack.Screen>
           </>
         ) : (
@@ -142,7 +147,12 @@ export default function App() {
                         }}
                       >
                         {(props) => (
-                          <ProfileScreen {...props} setToken={setToken} />
+                          <ProfileScreen
+                            {...props}
+                            setUser={setUser}
+                            userToken={userToken}
+                            userId={userId}
+                          />
                         )}
                       </Stack.Screen>
                     </Stack.Navigator>
